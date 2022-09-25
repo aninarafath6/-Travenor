@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travenor/common/theme/theme.dart';
+import 'package:travenor/common/utils/route_util.dart';
 import 'package:travenor/views/splash_view/splash_view.dart';
 
 void main() {
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme(),
       home: const SplashView(),
+      onGenerateRoute: AppRoutes.onGenerateRoute,
     );
   }
 }

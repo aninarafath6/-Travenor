@@ -5,6 +5,7 @@ import 'package:travenor/common/constants/color_constants.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
+  static const routeName = "/splash";
 
   @override
   State<SplashView> createState() => _SplashViewState();
