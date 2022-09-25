@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CustomTextTheme {
+class CustomHeading {
   static TextStyle heading1() {
     return const TextStyle(
       fontFamily: "sf-ui",

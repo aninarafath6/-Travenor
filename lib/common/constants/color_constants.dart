@@ -4,6 +4,7 @@ abstract class AppColors {
   static const primaryColor = Color(0xff0D6EFD);
   static const subTextColor = Color(0xff707B81);
   static const actionColor = Color(0xffFF7029);
+  static const white = Color(0xffFFFFFF);
 }
 
 class LightApp extends AppColors {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travenor/common/theme/text_theme/custom_paragraph.dart';
+// import 'package:travenor/common/theme/text_theme/custom_paragraph.dart';
 import 'package:travenor/common/theme/text_theme/custom_heading.dart';
 
 class AppTheme {
@@ -11,9 +11,9 @@ class AppTheme {
         headline1: CustomHeading.heading1(),
         headline2: CustomHeading.heading2(),
         headline3: CustomHeading.heading3(),
-        displayLarge: CustomParagraph.paragraph1(),
-        displayMedium: CustomParagraph.paragraph2(),
-        displaySmall: CustomParagraph.paragraph3(),
+        // bodyLarge: CustomParagraph.paragraph1(),
+        // displayMedium: CustomParagraph.paragraph2(),
+        // displaySmall: CustomParagraph.paragraph3(),
       ),
     );
   }
