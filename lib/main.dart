@@ -10,10 +10,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-          // primarySwatch: ,
-          ),
+      title: 'Travenor',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: "sf-ui"),
     );
   }
 }
