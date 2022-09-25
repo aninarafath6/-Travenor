@@ -25,6 +25,48 @@ class OnboardingController extends GetxController {
       title: "People don’t take trips,\ntrips take  ",
       spclText: "people",
       subText:
+          "To give the best of your adventure you just need to leave and go where you like. we are waiting for you",
+      imageURL: "assets/images/png/onboarding/onboarding-3.png",
+    ),
+    OnboardingModel(
+      title: "People don’t take trips,\ntrips take  ",
+      spclText: "people",
+      subText:
+          "To get the best of your adventure you just need to leave and go where you like. we are waiting for you",
+      imageURL: "assets/images/png/onboarding/onboarding-3.png",
+    ),
+    OnboardingModel(
+      title: "People don’t take trips,\ntrips take  ",
+      spclText: "people",
+      subText:
+          "To get the best of your adventure you just need to leave and go where you like. we are waiting for you",
+      imageURL: "assets/images/png/onboarding/onboarding-3.png",
+    ),
+    OnboardingModel(
+      title: "People don’t take trips,\ntrips take  ",
+      spclText: "people",
+      subText:
+          "To get the best of your adventure you just need to leave and go where you like. we are waiting for you",
+      imageURL: "assets/images/png/onboarding/onboarding-3.png",
+    ),
+    OnboardingModel(
+      title: "People don’t take trips,\ntrips take  ",
+      spclText: "people",
+      subText:
+          "To get the best of your adventure you just need to leave and go where you like. we are waiting for you",
+      imageURL: "assets/images/png/onboarding/onboarding-3.png",
+    ),
+    OnboardingModel(
+      title: "People don’t take trips,\ntrips take  ",
+      spclText: "people",
+      subText:
+          "To get the best of your adventure you just need to leave and go where you like. we are waiting for you",
+      imageURL: "assets/images/png/onboarding/onboarding-3.png",
+    ),
+    OnboardingModel(
+      title: "People don’t take trips,\ntrips take  ",
+      spclText: "people",
+      subText:
           "To get the best of your adventure you just need to leave and go where you like. we are waiting for you",
       imageURL: "assets/images/png/onboarding/onboarding-3.png",
     ),
@@ -34,7 +76,11 @@ class OnboardingController extends GetxController {
   int get selectedIndex => _selectedIndex.value;
   PageController get pageController => _pageController;
 
-  void onChange(int index) {
-    _selectedIndex.value = index;
+  void next() {
+    if (_onboardingList.length > selectedIndex + 1) {
+      _selectedIndex.value += 1;
+    } else {
+// go to next page
+    }
   }
 }

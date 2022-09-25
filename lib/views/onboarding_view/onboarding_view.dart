@@ -38,44 +38,43 @@ class _OnboardingViewState extends State<OnboardingView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          SizedBox(
-            width: context.getWidth(100),
-            height: context.getHeight(52),
-            child: ClipRRect(
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(
-                    lerpDouble(30, 30, _animationController.value)!),
-              ),
-              child: Obx(
-                () {
-                  return FadeTransition(
-                    alwaysIncludeSemantics: true,
-                    opacity: _animationController,
-                    child: Image.asset(
-                      _onboardingController
-                          .onboardingList[_onboardingController.selectedIndex]
-                          .imageURL!,
-                      fit: BoxFit.cover,
-                    ),
-                  );
-                },
+      body: Obx(() {
+        return Column(
+          children: [
+            SizedBox(
+              width: context.getWidth(100),
+              height: context.getHeight(52),
+              child: ClipRRect(
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(
+                      lerpDouble(30, 30, _animationController.value)!),
+                ),
+                child: FadeTransition(
+                  alwaysIncludeSemantics: true,
+                  opacity: _animationController,
+                  child: Image.asset(
+                    _onboardingController
+                        .onboardingList[_onboardingController.selectedIndex]
+                        .imageURL!,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 50),
-          Expanded(
-            child: PageView.builder(
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    _title(index),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40.0),
+            const SizedBox(height: 50),
+            _title(_onboardingController.selectedIndex),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40.0),
+              child: AnimatedBuilder(
+                  animation: _animationController,
+                  builder: (context, _) {
+                    return Opacity(
+                      opacity: _animationController.value,
                       child: Text(
-                        _onboardingController.onboardingList[index].subText!,
+                        _onboardingController
+                            .onboardingList[_onboardingController.selectedIndex]
+                            .subText!,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           fontSize: 16,
@@ -84,81 +83,96 @@ class _OnboardingViewState extends State<OnboardingView>
                           height: 1.5,
                         ),
                       ),
-                    ),
-                  ],
-                );
-              },
-              onPageChanged: (index) {
-                _onboardingController.onChange(index);
-                if (_animationController.isCompleted) {
-                  _animationController.reset();
-                  _animationController.forward();
-                } else {
-                  _animationController.forward();
-                }
-              },
-              itemCount: _onboardingController.onboardingList.length,
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Obx(() {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                        3,
-                        (index) => AnimatedContainer(
-                          duration: const Duration(milliseconds: 300),
-                          width: _onboardingController.selectedIndex == index
-                              ? 35
-                              : index == 0
-                                  ? 16
-                                  : 8,
-                          height: 10,
-                          decoration: BoxDecoration(
-                              color:
-                                  _onboardingController.selectedIndex == index
-                                      ? AppColors.primaryColor
-                                      : AppColors.lightCyan,
-                              borderRadius: BorderRadius.circular(16)),
-                          margin: const EdgeInsets.only(right: 7),
-                        ),
-                      ),
                     );
                   }),
-                  const SizedBox(height: 50),
-                  const CustomButton(label: "Get Started"),
-                ],
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Obx(
+                  () {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            _onboardingController.onboardingList.length,
+                            (index) => AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              width:
+                                  _onboardingController.selectedIndex == index
+                                      ? 35
+                                      : index == 0
+                                          ? 16
+                                          : 8,
+                              height: 10,
+                              decoration: BoxDecoration(
+                                color:
+                                    _onboardingController.selectedIndex == index
+                                        ? AppColors.primaryColor
+                                        : AppColors.lightCyan,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              margin: const EdgeInsets.only(right: 7),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 50),
+                        CustomButton(
+                          label: _onboardingController.selectedIndex == 0
+                              ? "Get Started"
+                              : "Next",
+                          onTap: () {
+                            _onboardingController.next();
+                            if (_animationController.isCompleted) {
+                              _animationController.reset();
+                              _animationController.forward();
+                            } else {
+                              _animationController.forward();
+                            }
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        );
+      }),
     );
   }
 
-  RichText _title(int index) {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-        text: _onboardingController.onboardingList[index].title,
-        style: const TextStyle(
-          fontSize: 30,
-          fontFamily: "Geometr415 Blk BT",
-          color: LightApp.textColor,
-        ),
-        children: [
-          TextSpan(
-            text: _onboardingController.onboardingList[index].spclText,
-            style: const TextStyle(
-              color: AppColors.actionColor,
-            ),
+  AnimatedSwitcher _title(int index) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 300),
+      transitionBuilder: (child, animation) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+      child: RichText(
+        key: ValueKey(_onboardingController.onboardingList[index].title),
+        textAlign: TextAlign.center,
+        text: TextSpan(
+          text: _onboardingController.onboardingList[index].title,
+          style: const TextStyle(
+            fontSize: 30,
+            fontFamily: "Geometr415 Blk BT",
+            color: LightApp.textColor,
           ),
-        ],
+          children: [
+            TextSpan(
+              text: _onboardingController.onboardingList[index].spclText,
+              style: const TextStyle(
+                color: AppColors.actionColor,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

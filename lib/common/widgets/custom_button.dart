@@ -25,12 +25,22 @@ class CustomButton extends StatelessWidget {
           width: double.infinity,
           height: 56,
           child: Center(
-            child: Text(
-              label ?? "",
-              style: const TextStyle(
-                color: AppColors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              transitionBuilder: ((child, animation) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: child,
+                );
+              }),
+              child: Text(
+                label ?? "",
+                key: ValueKey(label),
+                style: const TextStyle(
+                  color: AppColors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
               ),
             ),
           ),
