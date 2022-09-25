@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:travenor/common/constants/color_constants.dart';
+import 'package:travenor/views/onboarding_view/onboarding_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -18,7 +20,13 @@ class _SplashViewState extends State<SplashView>
   @override
   void initState() {
     _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 800));
+        vsync: this, duration: const Duration(milliseconds: 800))
+      ..addStatusListener((status) async {
+        if (status == AnimationStatus.completed) {
+          await Future.delayed(const Duration(milliseconds: 2200));
+          Get.offAndToNamed(OnboardingView.routeName);
+        }
+      });
     _animationController.forward();
 
     super.initState();
