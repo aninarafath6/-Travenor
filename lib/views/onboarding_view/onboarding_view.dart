@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travenor/common/constants/color_constants.dart';
 import 'package:travenor/common/utils/dimension.dart';
+import 'package:travenor/common/widgets/custom_button.dart';
 import 'package:travenor/controllers/onboarding_controller.dart';
 
 class OnboardingView extends StatefulWidget {
@@ -99,12 +100,40 @@ class _OnboardingViewState extends State<OnboardingView>
               itemCount: _onboardingController.onboardingList.length,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: const [
-                CustomButton(label: "Get Started"),
-              ],
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Obx(() {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        3,
+                        (index) => AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          width: _onboardingController.selectedIndex == index
+                              ? 35
+                              : index == 0
+                                  ? 16
+                                  : 8,
+                          height: 10,
+                          decoration: BoxDecoration(
+                              color:
+                                  _onboardingController.selectedIndex == index
+                                      ? AppColors.primaryColor
+                                      : AppColors.lightCyan,
+                              borderRadius: BorderRadius.circular(16)),
+                          margin: const EdgeInsets.only(right: 7),
+                        ),
+                      ),
+                    );
+                  }),
+                  const SizedBox(height: 50),
+                  const CustomButton(label: "Get Started"),
+                ],
+              ),
             ),
           ),
         ],
@@ -130,45 +159,6 @@ class _OnboardingViewState extends State<OnboardingView>
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class CustomButton extends StatelessWidget {
-  const CustomButton({
-    Key? key,
-    this.label,
-    this.onTap,
-  }) : super(key: key);
-  final String? label;
-  final Function()? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: TextButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith(
-            (states) => AppColors.primaryColor,
-          ),
-        ),
-        onPressed: onTap,
-        child: SizedBox(
-          width: double.infinity,
-          height: 56,
-          child: Center(
-            child: Text(
-              label ?? "",
-              style: const TextStyle(
-                color: AppColors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }
