@@ -31,6 +31,8 @@ dev_dependencies:
   
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/png/onboarding/
   fonts:
     - family: sf-ui
       fonts:

@@ -13,6 +13,7 @@ class LightApp extends AppColors {
   static const lineStokeColor = Color(0xffF8F9FA);
   static const bgColor = Color(0xffFFFFFF);
   static const frameColor = Color(0xffF8F9FA);
+  static const subText = Color(0xff7D848D);
 }
 
 class DarkApp extends AppColors {

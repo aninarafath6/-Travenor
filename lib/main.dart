@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Travenor',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.theme(),
-      home: const SplashView(),
+      initialRoute: SplashView.routeName,
       onGenerateRoute: AppRoutes.onGenerateRoute,
     );
   }
