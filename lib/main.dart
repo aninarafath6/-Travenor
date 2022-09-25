@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:travenor/common/constants/color_constatns.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,6 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             const Text(
               'You have pushed the button this many times:',
+              style: TextStyle(
+                  fontFamily: ".sfd",
+                  fontWeight: FontWeight.bold,
+                  fontSize: 50),
             ),
             Text(
               '$_counter',
